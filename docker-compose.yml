@@ -1,0 +1,33 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: userService
+      POSTGRES_PASSWORD: magical_password
+      POSTGRES_DB: userDb
+    volumes:
+      - database-data:/var/lib/postgresql/data/
+  auth:
+    build: ./packages/authService
+  user:
+    build: ./packages/userService
+    environment:
+      AUTH_SERVICE_URL: http://auth
+      TYPEORM_CONNECTION: postgres
+      TYPEORM_HOST: db
+      TYPEORM_USERNAME: userService
+      TYPEORM_PASSWORD: magical_password
+      TYPEORM_DATABASE: userDb
+    ports:
+    - "3000:3000"
+    links:
+      - db
+      - auth
+    depends_on:
+      - db
+      - auth
+
+volumes:
+  database-data:

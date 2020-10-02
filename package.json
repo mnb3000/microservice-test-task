@@ -1,0 +1,9 @@
+{
+  "name": "microservice-test-task",
+  "version": "1.0.0",
+  "repository": "https://github.com/mnb3000/microservices-test-task",
+  "author": "mnb3000",
+  "license": "MIT",
+  "private": true,
+  "workspaces": ["packages/*"]
+}
