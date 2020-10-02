@@ -30,7 +30,7 @@ const checkJwt: RequestHandler = async (req, res, next) => {
   }
 
   try {
-    const validationResponse = await axios.post<ValidateJwtResponse>(`${process.env.AUTH_SERVICE_URL}/auth/verifyToken`, { token });
+    const validationResponse = await axios.post<ValidateJwtResponse>(`${process.env.AUTH_SERVICE_URL}/auth/validateToken`, { token });
     if (validationResponse.data.error || !validationResponse.data.payload) {
       return next(new UnauthorizedError('invalid_token', { message: "Invalid token!" }));
     }
