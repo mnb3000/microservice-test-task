@@ -11,10 +11,12 @@ services:
       - database-data:/var/lib/postgresql/data/
   auth:
     build: ./packages/authService
+    environment:
+      HOST: auth
   user:
     build: ./packages/userService
     environment:
-      AUTH_SERVICE_URL: http://auth
+      AUTH_SERVICE_URL: http://auth:3000
       TYPEORM_CONNECTION: postgres
       TYPEORM_HOST: db
       TYPEORM_USERNAME: userService
